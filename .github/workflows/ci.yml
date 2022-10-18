@@ -8,25 +8,25 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-latest
-            python: 3.8
-            toxenv: py
+          # - os: ubuntu-latest
+          #   python: 3.8
+          #   toxenv: py
           - os: ubuntu-latest
             python: 3.9
             toxenv: py
           - os: ubuntu-latest
             python: "3.10"
             toxenv: py
-          - os: windows-latest
-            python: 3.8
-            toxenv: py
-          - os: windows-latest
-            python: 3.9
-            toxenv: py
-          - os: windows-latest
-            python: "3.10"
-            toxenv: py
-          - os: ubunut-latest
+          # - os: windows-latest
+          #   python: 3.8
+          #   toxenv: py
+          # - os: windows-latest
+          #   python: 3.9
+          #   toxenv: py
+          # - os: windows-latest
+          #   python: "3.10"
+          #   toxenv: py
+          - os: ubuntu-latest
             python: "3.10"
             toxenv: linters
           - os: ubuntu-latest

@@ -18,7 +18,7 @@ license = {file = "LICENSE"}
 name = "qtrex"
 readme = "README.md"
 requires-python = ">=3.8"
-version = "0.1.0"
+version = "0.0.1"
 
 [project.urls]
 documentation = "https://github.com/bradleybonitatibus/qtrex"
@@ -30,4 +30,4 @@ include = ["qtrex*"]
 
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = ['setuptools==65.5.0']
+requires = ['setuptools', "setuptools-scm"]

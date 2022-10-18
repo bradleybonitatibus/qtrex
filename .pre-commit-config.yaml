@@ -6,19 +6,6 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
-  - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.1.10
-    hooks:
-      - id: insert-license
-        name: Add license for all .py files
-        files: \.py$
-        exclude: ^\.gitlab/.*$/
-        args:
-          - --comment-style
-          - "#"
-          - --license-filepath
-          - license-templates/LICENSE.txt
-          - --fuzzy-match-generates-todo
   - repo: local
     hooks:
       - id: static analysis

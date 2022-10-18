@@ -21,7 +21,7 @@ class QueryRef:
     name: str
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class QueryResult:
     """QueryResult is returned from the execution engine that runs the query.
 

@@ -94,6 +94,8 @@ packaging==21.3
     #   pyproject-api
     #   semgrep
     #   tox
+pandas-stubs==1.5.0.221012
+    # via -r dev-requirements.in
 pathspec==0.10.1
     # via black
 peewee==3.15.3
@@ -158,6 +160,8 @@ tox==4.0.0b2
     # via -r dev-requirements.in
 tqdm==4.64.1
     # via semgrep
+types-pytz==2022.4.0.0
+    # via pandas-stubs
 typing-extensions==4.4.0
     # via
     #   mypy

@@ -26,8 +26,9 @@ repos:
         name: static analysis
         entry: tox -e linters --
         language: system
+        types: [python]
       - id: SAST security scan
         name: SAST security scan
-        entry: tox -e sast
+        entry: tox -e security --
         language: system
-        pass_filenames: false
+        types: [python]

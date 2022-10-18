@@ -15,7 +15,7 @@ jobs:
             python: 3.9
             toxenv: py
           - os: ubuntu-latest
-            python: 3.10
+            python: "3.10"
             toxenv: py
           - os: windows-latest
             python: 3.8
@@ -24,13 +24,13 @@ jobs:
             python: 3.9
             toxenv: py
           - os: windows-latest
-            python: 3.10
+            python: "3.10"
             toxenv: py
           - os: ubunut-latest
-            python: 3.10
+            python: "3.10"
             toxenv: linters
           - os: ubuntu-latest
-            python: 3.10
+            python: "3.10"
             toxenv: security
     runs-on: ${{ matrix.os }}
     steps:

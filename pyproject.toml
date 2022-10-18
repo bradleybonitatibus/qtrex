@@ -1,0 +1,33 @@
+[project]
+authors = [
+  {name = "Bradley Bonitatibus", email = "bradleybonitatibus@gmail.com"},
+]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Operating System :: MacOS",
+  "Operating System :: Microsoft :: Windows",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Topic :: Software Development :: Libraries",
+]
+description = "Query template rendering and execution library"
+license = {file = "LICENSE"}
+name = "qtrex"
+readme = "README.md"
+requires-python = ">=3.8"
+version = "0.1.0"
+
+[project.urls]
+documentation = "https://github.com/bradleybonitatibus/qtrex"
+homepage = "https://github.com/bradleybonitatibus/qtrex"
+repository = "https://github.com/bradleybonitatibus/qtrex"
+
+[tool.setuptools.packages.find]
+include = ["qtrex*"]
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ['setuptools==65.5.0']

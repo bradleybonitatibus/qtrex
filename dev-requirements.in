@@ -4,3 +4,4 @@ flake8-docstrings==1.6.0
 mypy==0.982
 pre-commit==2.20.0
 pip-tools==6.9.0
+tox==4.0.0b2

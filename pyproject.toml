@@ -17,6 +17,8 @@ authors = [
   {name = "Bradley Bonitatibus", email = "bradleybonitatibus@gmail.com"},
 ]
 classifiers = [
+  "Development Status :: 1 - Planning",
+  "License :: OSI Approved :: Apache Software License",
   "Intended Audience :: Developers",
   "Natural Language :: English",
   "Operating System :: MacOS",
@@ -28,21 +30,22 @@ classifiers = [
   "Topic :: Software Development :: Libraries",
 ]
 description = "Query template rendering and execution library"
-license = {file = "LICENSE"}
+license = {text = "Apache-2.0"}
 name = "qtrex"
 readme = "README.md"
 requires-python = ">=3.8"
-version = "0.0.1"
+version = "0.0.3"
 
 [options]
 install_requires = [
   "pandas==1.5.0",
+  "PyYAML==6.0",
 ]
 
 [project.urls]
-documentation = "https://github.com/bradleybonitatibus/qtrex"
-homepage = "https://github.com/bradleybonitatibus/qtrex"
-repository = "https://github.com/bradleybonitatibus/qtrex"
+Documentation = "https://github.com/bradleybonitatibus/qtrex"
+Homepage = "https://github.com/bradleybonitatibus/qtrex"
+Repository = "https://github.com/bradleybonitatibus/qtrex"
 
 [tool.setuptools.packages.find]
 include = ["qtrex*"]

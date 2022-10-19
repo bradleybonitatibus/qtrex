@@ -7,16 +7,16 @@ class BaseQtrexException(Exception):
 
     def __init__(
         self,
+        *args: Optional[List[Any]],
         caused_by: Optional[Exception] = None,
         message: Optional[str] = None,
-        *args: Optional[List[Any]],
         **kwargs: Optional[Dict[str, Any]],
     ) -> None:
         """Wrap an exception with additional metadata.
 
         Args:
             caused_by (Optional[Exception]): Any exception raised external to this codebase.
-
+            message (Optional[str]): Error message
         """
         self.caused_by = caused_by
         self.message = message

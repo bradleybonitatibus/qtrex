@@ -19,7 +19,7 @@ def has_all_required_config_keys(data: dict) -> bool:
         bool
             True when all keys are present
     """
-    return all([k in data for k in REQUIRED_KEYS])
+    return all(k in data for k in REQUIRED_KEYS)
 
 
 class BaseConfig(ABC):
@@ -39,13 +39,13 @@ class BaseConfig(ABC):
 class YAMLConfig(BaseConfig):
     """YAMLConfig loads reads a YAML file and parses the contents into the BaseConfig abstract class."""
 
-    def __init__(self, fh: TextIO) -> None:
+    def __init__(self, file_handle: TextIO) -> None:
         """Load and read YAML parameter.
 
         Args:
-            fh (typing.TextIO): File handle
+            file_handle (typing.TextIO): File handle
         """
-        data = yaml.safe_load(fh)
+        data = yaml.safe_load(file_handle)
         if not has_all_required_config_keys(data):
             raise InvalidConfig(message="config contains invalid top level keys")
 

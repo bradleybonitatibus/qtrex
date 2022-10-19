@@ -181,6 +181,8 @@ tqdm==4.64.1
     # via semgrep
 types-pytz==2022.4.0.0
     # via pandas-stubs
+types-pyyaml==6.0.12
+    # via -r dev-requirements.in
 typing-extensions==4.4.0
     # via
     #   mypy

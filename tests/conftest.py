@@ -18,6 +18,9 @@ from unittest import mock
 
 from pytest import fixture
 
+from qtrex.models import QueryRef
+from qtrex.store import Store
+
 
 @fixture
 def mock_yaml_fixture() -> TextIO:
@@ -82,3 +85,20 @@ def mock_empty_yaml_fixture() -> TextIO:
         ),
     ) as f:
         return f
+
+
+@fixture
+def mock_query_ref() -> QueryRef:
+    """Fixture for QueryRef."""
+    return QueryRef("myfile.sql", "SELECT NOW()", "myfile.sql")
+
+
+@fixture
+def mock_query_store(mock_query_ref) -> Store:
+    store = Store()
+    store[mock_query_ref.name] = mock_query_ref
+    store["test_query"] = QueryRef(
+        "/tmp/qtrex/test.sql", "SELECT {{ now }}", "test.sql"
+    )
+
+    return store

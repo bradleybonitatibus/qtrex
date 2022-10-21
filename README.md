@@ -17,3 +17,95 @@ various databases.
 ```
 pip install qtrex
 ```
+
+## Examples
+
+Here is a brief example usage of `qtrex`. 
+
+Assuming you have query templates in a directory on a local filesystem, using
+our test suite as an example:
+
+```text
+|tests
+    |--test_*.py
+    |--testdata
+        |--mytemplate.sql
+        |--ingest
+            |--another_file_ext.j2
+            |--another_query.sql
+```
+
+Where `./tests/testdata/mytemplate.sql` has the following contents:
+```sql
+SELECT SUM(x)
+FROM UNNEST({{ params.test_array }}) AS x
+```
+and `./tests/testdata/ingest/another_query.sql` has:
+
+```sql
+SELECT
+    *
+FROM
+    `{{ params.my_project_id }}.{{ params.my_dataset }}.{{ params.my_table }}`
+```
+
+Next, we want to have our `.yaml` config (or extend `qtrex.config.BaseConfig`)
+to implement your own config mechanism.
+
+Our `./tests/example.yaml` will look like:
+```yaml
+params:
+  - key: test_string_key
+    value: "string_value"
+  - key: test_array_key
+    value: [1, 2, 3]
+  - key: test_dict_key
+    value:
+      first: 1
+      two: 2
+      three: 3
+  - key: my_project_id
+    value: test_gcp_project_id
+  - key: my_dataset
+    value: test_dataset
+  - key: my_table_name
+    value: test_table
+```
+
+We can now run the following script (`./tests/example.py`) after changing
+into the `./tests` directory
+```python
+from qtrex.store import Store
+from qtrex.config import YAMLConfig
+
+
+def main():
+    with open("./example.yaml", "r") as f:
+        cfg = YAMLConfig(f)
+
+    store = Store.from_path(cfg, "./testdata")
+
+    for query_ref in store:
+        print(query_ref.template)
+
+
+if __name__ == "__main__":
+    main()
+
+```
+
+When we run this script:
+```shell
+cd ./tests
+python example.py
+```
+we should see the following in `stdout`
+
+```text
+SELECT SUM(x)
+FROM UNNEST([1, 2, 3]) AS x
+SELECT
+    *
+FROM
+    `test_gcp_project_id.test_dataset.test_table`
+```

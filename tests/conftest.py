@@ -13,13 +13,14 @@
 # limitations under the License.
 
 """Shared test fixtures."""
-from typing import TextIO
+from typing import TextIO, Sequence
 from unittest import mock
 
 from pytest import fixture
 
 from qtrex.models import QueryRef
 from qtrex.store import Store
+from qtrex.config import BaseConfig, YAMLConfig
 
 
 @fixture
@@ -90,15 +91,57 @@ def mock_empty_yaml_fixture() -> TextIO:
 @fixture
 def mock_query_ref() -> QueryRef:
     """Fixture for QueryRef."""
-    return QueryRef("myfile.sql", "SELECT NOW()", "myfile.sql")
+    return QueryRef(
+        "/mnt/test1.sql",
+        "SELECT * FROM UNNEST({{ params.test_array_key }})",
+        "test1.sql",
+    )
 
 
 @fixture
 def mock_query_store(mock_query_ref) -> Store:
     store = Store()
     store[mock_query_ref.name] = mock_query_ref
-    store["test_query"] = QueryRef(
-        "/tmp/qtrex/test.sql", "SELECT {{ now }}", "test.sql"
+    store["test2.sql"] = QueryRef(
+        "/tmp/qtrex/test.sql", "SELECT {{ params.test_string_key }}", "test2.sql"
     )
 
     return store
+
+
+@fixture
+def mock_config_fixture() -> BaseConfig:
+    with mock.patch(
+        "{0}.open".format(__name__),
+        create=True,
+        new_callable=mock.mock_open(
+            read_data="""
+            params:
+                - key: test_string_key
+                  value: "string_value"
+                - key: test_array_key
+                  value: [1,2,3]
+                - key: test_dict_key
+                  value:
+                    first: 1
+                    two: 2
+                    three: 3
+            """
+        ),
+    ) as f:
+        return YAMLConfig(f)
+
+
+@fixture
+def mock_query_file() -> TextIO:
+    with mock.patch(
+        "{0}.open".format(__name__),
+        create=True,
+        new_callable=mock.mock_open(
+            read_data="""
+            SELECT {{ params.test_string_key }}, {{ params.test_dict_key.first }}
+            FROM UNNEST({{ params.test_array }})
+            """
+        ),
+    ) as f:
+        return f

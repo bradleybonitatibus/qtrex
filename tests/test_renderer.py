@@ -13,3 +13,20 @@
 # limitations under the License.
 
 """Tests for the renderer module."""
+from typing import TextIO
+
+from qtrex.config import BaseConfig
+from qtrex.renderer import TemplateRenderer
+
+
+def test_renderer_removes_params(
+    mock_config_fixture: BaseConfig, mock_query_file: TextIO
+) -> None:
+    renderer = TemplateRenderer(mock_config_fixture, [mock_query_file])
+    rendered = renderer.render()
+
+    assert len(rendered) > 0
+
+    for r_template in rendered:
+        assert "{{" not in r_template.template
+        assert "}}" not in r_template.template

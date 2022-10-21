@@ -16,7 +16,7 @@
 import sys
 from typing import TextIO, Sequence, List
 
-from jinja2 import Template as __template
+from jinja2 import Template as jt
 
 from qtrex.config import BaseConfig
 from qtrex.models import QueryRef
@@ -67,4 +67,4 @@ class TemplateRenderer:
         Returns:
             str
         """
-        return __template(contents).render(params=self.__cfg.params)
+        return jt(contents).render(params=self.__cfg.params)

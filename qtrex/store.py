@@ -14,9 +14,36 @@
 
 """Store is responsible for storing in-memory representation for query templates."""
 
-from typing import Dict, Generator, Optional
+import os
+from typing import Dict, Generator, Optional, List, TextIO, Sequence
 
+from qtrex.config import BaseConfig
 from qtrex.models import QueryRef
+from qtrex.renderer import TemplateRenderer
+
+
+def walk_files(root: str, ext: str) -> Sequence[TextIO]:
+    """Traverse files and get file handles.
+
+    Args:
+        root (str): Absolute path to root directory of templates.
+        ext (str): File extensions to load.
+
+    Returns:
+        typing.Sequence[typing.TextIO]
+    """
+    handles: List[TextIO] = []
+
+    for path, _, files in os.walk(root):
+        for _f in files:
+            f_name = os.path.join(path, _f)
+
+            if f_name.endswith(ext) and os.path.getsize(f_name) != 0:
+                # pylint: disable=R1732
+                f_handle = open(f_name, "r", encoding="utf-8")  # noqa
+                handles.append(f_handle)
+
+    return handles
 
 
 class Store:
@@ -95,3 +122,27 @@ class Store:
             query_name (str): QueryRef name
         """
         del self.__data[query_name]
+
+    @classmethod
+    def from_path(cls, config: BaseConfig, root: str, ext: str = ".sql") -> "Store":
+        """Load queries into the Store from a system directory.
+
+        Args:
+            root (str): Root directory containing all query templates.
+
+        Returns:
+            Store
+        """
+        templates = walk_files(root, ext)
+        renderer = TemplateRenderer(
+            templates=templates,
+            config=config,
+        )
+
+        rendered_tempaltes = renderer.render()
+        store = Store()
+
+        for rendered in rendered_tempaltes:
+            store.put(rendered)
+
+        return store

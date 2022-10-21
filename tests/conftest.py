@@ -126,6 +126,12 @@ def mock_config_fixture() -> BaseConfig:
                     first: 1
                     two: 2
                     three: 3
+                - key: my_project_id
+                  value: test_gcp_project_id
+                - key: my_dataset
+                  value: test_dataset
+                - key: my_table_name
+                  value: test_table
             """
         ),
     ) as f:

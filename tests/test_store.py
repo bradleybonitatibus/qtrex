@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Module to test the data qtrex datamodels."""
+import os
 
 from qtrex.models import QueryRef
 from qtrex.store import Store
@@ -38,3 +39,11 @@ def test_store_can_get_put_and_delete(mock_query_store: Store) -> None:
     assert store.get("query.sql") is not None
     store.delete("query.sql")
     assert store.get("query.sql") is None
+
+
+def test_store_can_load_from_path(mock_config_fixture) -> None:
+    root = os.path.join(os.path.dirname(__file__), "testdata")
+    store = Store.from_path(mock_config_fixture, root)
+    assert len(store) == 2
+    store = Store.from_path(mock_config_fixture, root, ext=".j2")
+    assert len(store) == 1

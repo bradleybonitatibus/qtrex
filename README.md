@@ -1,7 +1,7 @@
 # qtrex
 [![CI](https://github.com/bradleybonitatibus/qtrex/actions/workflows/ci.yml/badge.svg)](https://github.com/bradleybonitatibus/qtrex/actions/workflows/ci.yml)
 
-[![PyPI version](https://badge.fury.io/py/qtrex.svg)](https://badge.fury.io/py/qtrex)
+[![PyPI version](https://badge.fury.io/py/qtrex.svg?)](https://badge.fury.io/py/qtrex)
 
 Query template rendering and execution library written in Python.
 
@@ -48,6 +48,11 @@ SELECT
 FROM
     `{{ params.my_project_id }}.{{ params.my_dataset }}.{{ params.my_table }}`
 ```
+and lastly, `./tests/testdata/nested_params.sql` has:
+```sql
+SELECT
+    {{ params.test_dict_key.one }} + {{ params.test_dict_key.two }}
+```
 
 Next, we want to have our `.yaml` config (or extend `qtrex.config.BaseConfig`)
 to implement your own config mechanism.
@@ -61,7 +66,7 @@ params:
     value: [1, 2, 3]
   - key: test_dict_key
     value:
-      first: 1
+      one: 1
       two: 2
       three: 3
   - key: my_project_id
@@ -86,7 +91,7 @@ def main():
     store = Store.from_path(cfg, "./testdata")
 
     for query_ref in store:
-        print(query_ref.template)
+        print(f"{query_ref.name}: {query_ref.template}\n")
 
 
 if __name__ == "__main__":
@@ -102,10 +107,15 @@ python example.py
 we should see the following in `stdout`
 
 ```text
-SELECT SUM(x)
+mytemplate.sql: SELECT SUM(x)
 FROM UNNEST([1, 2, 3]) AS x
-SELECT
+
+nested_params.sql: SELECT
+    1 + 2
+
+another_query.sql: SELECT
     *
 FROM
     `test_gcp_project_id.test_dataset.test_table`
+
 ```

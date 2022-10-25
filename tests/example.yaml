@@ -5,7 +5,7 @@ params:
     value: [1, 2, 3]
   - key: test_dict_key
     value:
-      first: 1
+      one: 1
       two: 2
       three: 3
   - key: my_project_id

@@ -9,7 +9,7 @@ def main():
     store = Store.from_path(cfg, "./testdata")
 
     for query_ref in store:
-        print(query_ref.template)
+        print(f"{query_ref.name}: {query_ref.template}\n")
 
 
 if __name__ == "__main__":

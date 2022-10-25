@@ -44,6 +44,6 @@ def test_store_can_get_put_and_delete(mock_query_store: Store) -> None:
 def test_store_can_load_from_path(mock_config_fixture) -> None:
     root = os.path.join(os.path.dirname(__file__), "testdata")
     store = Store.from_path(mock_config_fixture, root)
-    assert len(store) == 2
+    assert len(store) > 1
     store = Store.from_path(mock_config_fixture, root, ext=".j2")
     assert len(store) == 1

@@ -1,7 +1,7 @@
 # qtrex
 [![CI](https://github.com/bradleybonitatibus/qtrex/actions/workflows/ci.yml/badge.svg)](https://github.com/bradleybonitatibus/qtrex/actions/workflows/ci.yml)
 
-[![PyPI version](https://badge.fury.io/py/qtrex.svg?)](https://badge.fury.io/py/qtrex)
+[![PyPI version](https://badge.fury.io/py/qtrex.svg)](https://badge.fury.io/py/qtrex)
 
 Query template rendering and execution library written in Python.
 

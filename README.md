@@ -14,8 +14,11 @@ various databases.
 
 `qtrex` is installable at https://pypi.org/project/qtrex/ via `pip` using:
 
+We currently only support `bigquery`, but plan on adding other DB support as
+optional dependencies.
+
 ```
-pip install qtrex
+pip install 'qtrex[bigquery]==0.0.5'
 ```
 
 ## Examples

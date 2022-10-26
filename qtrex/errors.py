@@ -39,3 +39,7 @@ class BaseQtrexException(Exception):
 
 class InvalidConfig(BaseQtrexException):
     """InvalidConfig is an exception for when a config is malformed."""
+
+
+class ExecutionError(BaseQtrexException):
+    """Failed to execute query against a database."""

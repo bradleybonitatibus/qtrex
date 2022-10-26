@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from qtrex.executor import BigQueryExecutor
 from qtrex.store import Store
 from qtrex.config import YAMLConfig
 
@@ -21,9 +22,11 @@ def main():
         cfg = YAMLConfig(f)
 
     store = Store.from_path(cfg, "./testdata")
-
+    ex = BigQueryExecutor()
     for query_ref in store:
         print(f"{query_ref.name}: {query_ref.template}\n")
+        res = ex.execute(query_ref, dry_run=True)
+        print(f"results: {res}")
 
 
 if __name__ == "__main__":

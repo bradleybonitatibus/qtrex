@@ -69,17 +69,12 @@ params:
       one: 1
       two: 2
       three: 3
-  - key: my_project_id
-    value: test_gcp_project_id
-  - key: my_dataset
-    value: test_dataset
-  - key: my_table_name
-    value: test_table
 ```
 
 We can now run the following script (`./tests/example.py`) after changing
 into the `./tests` directory
 ```python
+from qtrex.executor import BigQueryExecutor
 from qtrex.store import Store
 from qtrex.config import YAMLConfig
 
@@ -89,9 +84,11 @@ def main():
         cfg = YAMLConfig(f)
 
     store = Store.from_path(cfg, "./testdata")
-
+    ex = BigQueryExecutor()
     for query_ref in store:
         print(f"{query_ref.name}: {query_ref.template}\n")
+        res = ex.execute(query_ref, dry_run=True)
+        print(f"results: {res}")
 
 
 if __name__ == "__main__":
@@ -110,12 +107,10 @@ we should see the following in `stdout`
 mytemplate.sql: SELECT SUM(x)
 FROM UNNEST([1, 2, 3]) AS x
 
+results: QueryResult(query_ref=QueryRef(filename='./testdata\\mytemplate.sql', template='SELECT SUM(x)\nFROM UNNEST([1, 2, 3]) AS x', name='mytemplate.sql'), df=None, error=None)
 nested_params.sql: SELECT
     1 + 2
 
-another_query.sql: SELECT
-    *
-FROM
-    `test_gcp_project_id.test_dataset.test_table`
+results: QueryResult(query_ref=QueryRef(filename='./testdata\\nested_params.sql', template='SELECT\n    1 + 2', name='nested_params.sql'), df=None, error=None)
 
 ```

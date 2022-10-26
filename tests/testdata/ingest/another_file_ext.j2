@@ -1,4 +1,1 @@
-SELECT
-    *
-FROM
-    `{{ params.my_project_id }}.{{ params.my_dataset }}.{{ params.my_table }}`
+SELECT {{ params.test_dict_key.one }} + {{ params.test_dict_key.two }}

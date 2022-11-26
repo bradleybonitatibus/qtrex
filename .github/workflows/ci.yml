@@ -29,9 +29,6 @@ jobs:
           - os: ubuntu-latest
             python: "3.10"
             toxenv: linters
-          - os: ubuntu-latest
-            python: "3.10"
-            toxenv: security
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3

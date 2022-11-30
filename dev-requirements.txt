@@ -41,7 +41,7 @@ click==8.1.3
     #   semgrep
 click-option-group==0.5.5
     # via semgrep
-colorama==0.4.5
+colorama==0.4.6
     # via
     #   build
     #   click
@@ -111,7 +111,7 @@ pep517==0.13.0
     # via build
 pip-tools==6.9.0
     # via -r dev-requirements.in
-platformdirs==2.5.2
+platformdirs==2.5.4
     # via
     #   black
     #   pylint
@@ -135,7 +135,7 @@ pylint==2.15.4
     # via -r dev-requirements.in
 pyparsing==3.0.9
     # via packaging
-pyproject-api==1.1.1
+pyproject-api==1.1.2
     # via tox
 pyrsistent==0.18.1
     # via jsonschema
@@ -175,7 +175,7 @@ tomli==2.0.1
     #   tox
 tomlkit==0.11.5
     # via pylint
-tox==4.0.0b2
+tox==4.0.0b3
     # via -r dev-requirements.in
 tqdm==4.64.1
     # via semgrep
@@ -193,7 +193,7 @@ urllib3==1.26.12
     # via
     #   requests
     #   semgrep
-virtualenv==20.16.5
+virtualenv==20.17.0
     # via
     #   pre-commit
     #   tox
